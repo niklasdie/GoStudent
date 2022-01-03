@@ -1,3 +1,5 @@
+package sebastian;
+
 import java.time.LocalDate;
 
 public class RunEvent {

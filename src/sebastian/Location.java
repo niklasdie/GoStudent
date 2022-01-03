@@ -1,3 +1,5 @@
+package sebastian;
+
 public class Location {
     private String _County;
     private String _Currency;
