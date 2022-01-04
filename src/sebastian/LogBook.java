@@ -1,6 +1,9 @@
 package sebastian;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class LogBook {
@@ -28,7 +31,12 @@ public class LogBook {
         return false;
     }
     public void importRunEvents(String fileName){
-        Scanner Filereader = new Scanner(fileName);
+        Scanner Filereader = null;
+        try {
+            Filereader = new Scanner(new File(fileName));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         String line;
         String RunEventInformation [];
 
@@ -48,8 +56,57 @@ public class LogBook {
             );
 
             this.addRunEvent(newEvent);
+
+
         }
 
+    }
+    public void printRunEvents(){
+
+        for (int i = 0; i < _Events.length; i++) {
+            if (_Events[i] != null){
+
+                System.out.println(_Events[i].toString());
+
+            }
+
+        }
+
+    }
+    public void setLocation(Location location){
+        for (int i = 0; i <_Events.length ; i++) {
+            if (_Events[i] != null){
+
+                _Events[i].set_Loc(location);
+
+            }
+        }
+    }
+
+    public double computeTotalDistance(){
+        double result=0;
+
+        for (int i = 0; i <_Events.length ; i++) {
+            if (_Events[i] != null){
+
+                result += _Events[i].get_Distance();
+
+            }
+        }
+        return result;
+    }
+
+    public double computeTotalFees(){
+        double result=0;
+
+        for (int i = 0; i <_Events.length ; i++) {
+            if (_Events[i] != null){
+
+                result += _Events[i].get_Fee();
+
+            }
+        }
+        return result;
     }
 
 }

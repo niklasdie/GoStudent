@@ -2,7 +2,11 @@ package sebastian;
 
 public class Test {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        LogBook Test = new LogBook(10);
+
+        Test.importRunEvents("src/sebastian/Events.txt");
+
+        Test.printRunEvents();
 
     }
 }
