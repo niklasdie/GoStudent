@@ -3,14 +3,13 @@ package sebastian;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class LogBook {
     private RunEvent[] _Events;
 
-    public LogBook(int size){
-        this._Events =  new RunEvent[size];
+    public LogBook(int size) {
+        this._Events = new RunEvent[size];
     }
 
     public RunEvent[] get_Events() {
@@ -21,16 +20,17 @@ public class LogBook {
         this._Events = _Events;
     }
 
-    public boolean addRunEvent(RunEvent isFree){
+    public boolean addRunEvent(RunEvent isFree) {
         for (int i = 0; i < _Events.length; i++) {
-            if (_Events[i] == null){
+            if (_Events[i] == null) {
                 _Events[i] = isFree;
                 return true;
             }
         }
         return false;
     }
-    public void importRunEvents(String fileName){
+
+    public void importRunEvents(String fileName) {
         Scanner Filereader = null;
         try {
             Filereader = new Scanner(new File(fileName));
@@ -38,21 +38,21 @@ public class LogBook {
             e.printStackTrace();
         }
         String line;
-        String RunEventInformation [];
+        String[] RunEventInformation;
 
 
-        while (Filereader.hasNextLine()){
+        while (Filereader.hasNextLine()) {
             line = Filereader.nextLine();
 
             RunEventInformation = line.split(";");
-            RunEvent newEvent = new RunEvent (
+            RunEvent newEvent = new RunEvent(
                     RunEventInformation[0],
                     RunEventInformation[4],
                     DistanceEnum.valueOf(RunEventInformation[1]),
                     LocalDate.parse(RunEventInformation[2]),
                     Double.parseDouble(RunEventInformation[3]),
                     Double.parseDouble(RunEventInformation[5]),
-                    new Location("Österreich","Euro")
+                    new Location("Österreich", "Euro")
             );
 
             this.addRunEvent(newEvent);
@@ -61,10 +61,11 @@ public class LogBook {
         }
 
     }
-    public void printRunEvents(){
+
+    public void printRunEvents() {
 
         for (int i = 0; i < _Events.length; i++) {
-            if (_Events[i] != null){
+            if (_Events[i] != null) {
 
                 System.out.println(_Events[i].toString());
 
@@ -73,9 +74,10 @@ public class LogBook {
         }
 
     }
-    public void setLocation(Location location){
-        for (int i = 0; i <_Events.length ; i++) {
-            if (_Events[i] != null){
+
+    public void setLocation(Location location) {
+        for (int i = 0; i < _Events.length; i++) {
+            if (_Events[i] != null) {
 
                 _Events[i].set_Loc(location);
 
@@ -83,11 +85,11 @@ public class LogBook {
         }
     }
 
-    public double computeTotalDistance(){
-        double result=0;
+    public double computeTotalDistance() {
+        double result = 0;
 
-        for (int i = 0; i <_Events.length ; i++) {
-            if (_Events[i] != null){
+        for (int i = 0; i < _Events.length; i++) {
+            if (_Events[i] != null) {
 
                 result += _Events[i].get_Distance();
 
@@ -96,11 +98,11 @@ public class LogBook {
         return result;
     }
 
-    public double computeTotalFees(){
-        double result=0;
+    public double computeTotalFees() {
+        double result = 0;
 
-        for (int i = 0; i <_Events.length ; i++) {
-            if (_Events[i] != null){
+        for (int i = 0; i < _Events.length; i++) {
+            if (_Events[i] != null) {
 
                 result += _Events[i].get_Fee();
 
